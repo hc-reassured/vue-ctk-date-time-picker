@@ -92,7 +92,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chronotruck/vue-ctk-date-time-picker.git"
+    "url": "git+https://github.com/hc-reassured/vue-range-picker-extended.git"
   },
   "keywords": [
     "vue",
@@ -113,7 +113,7 @@
     "npm": ">= 3.0.0"
   },
   "bugs": {
-    "url": "https://github.com/chronotruck/vue-ctk-date-time-picker/issues"
+    "url": "https://github.com/hc-reassured/vue-range-picker-extended/issues"
   },
-  "homepage": "https://github.com/chronotruck/vue-ctk-date-time-picker#readme"
+  "homepage": "https://github.com/hc-reassured/vue-range-picker-extended#readme"
 }
