@@ -66,11 +66,12 @@
               :dark="darkMode"
               range-mode
               overlay-background
-              color="purple"
+              color="#1870A0"
               enable-button-validate
               format="YYYY-MM-DD"
               formatted="ddd D MMM YYYY"
-              label="Select range"
+              label="Select Date Range"
+              @submit="submit"
             />
             <br>
             <textarea
@@ -81,12 +82,12 @@
               v-model="{ start: '2018-04-05', end: '2018-04-20' }"
               range-mode
               overlay-background
-              color="purple"
+              color="#1870A0"
               enable-button-validate
               format="YYYY-MM-DD"
               formatted="ddd D MMM YYYY"
-              label="Select range"
-              />
+              label="Select Date Range"
+              @submit="submit"/>
             </textarea>
           </div>
         </div>
@@ -249,6 +250,7 @@
 
 <script>
   import CtkDateTimePicker from './vue-ctk-date-time-picker/vue-ctk-date-time-picker.vue'
+  import moment from 'moment'
 
   export default {
     name: 'App',
@@ -261,8 +263,8 @@
         value2: null,
         value3: '2018-04-05T14:26',
         rangeValues: {
-          start: '2018-04-05',
-          end: '2018-04-20'
+          start: moment.utc().startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+          end: moment.utc().endOf('day').format('YYYY-MM-DD HH:mm:ss')
         },
         rangeValues2: {
           start: null,
@@ -274,10 +276,15 @@
         hint: 'Error message',
         errorHint: true,
         timeFormat: 'hh:mm a',
-        locale: 'fr',
+        locale: 'en',
         minDate: '2018-04-03',
         maxDate: '2018-04-12',
         darkMode: false
+      }
+    },
+    methods: {
+      submit () {
+        // code here
       }
     }
   }

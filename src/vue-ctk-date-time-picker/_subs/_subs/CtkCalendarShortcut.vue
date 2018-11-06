@@ -28,23 +28,25 @@
   import moment from 'moment'
 
   export default {
-    name: 'CtkCalendarShortcur',
+    name: 'CtkCalendarShortcut',
     props: {
       color: { type: String, default: String },
-      locale: { type: String, default: String },
       dark: { type: Boolean, default: false },
       dateTime: {type: Object, default: Object}
     },
     data () {
       return {
         shortcuts: [
+          { label: 'Today', value: 'day', isHover: false, isSelected: true },
+          { label: 'Yesterday', value: 'yesterday', isHover: false, isSelected: false },
           { label: 'This week', value: 'isoWeek', isHover: false, isSelected: false },
-          { label: 'Last 7 days', value: 7, isHover: false, isSelected: false },
-          { label: 'Last 30 days', value: 30, isHover: false, isSelected: false },
-          { label: 'This month', value: 'month', isHover: false, isSelected: false },
-          { label: 'Last month', value: '-month', isHover: false, isSelected: false },
-          { label: 'This year', value: 'year', isHover: false, isSelected: false },
-          { label: 'Last year', value: '-year', isHover: false, isSelected: false }
+          { label: 'Last week', value: 'last-week', isHover: false, isSelected: false },
+          { label: 'Current month', value: 'month', isHover: false, isSelected: false },
+          { label: 'Last month', value: '-month', isHover: false, isSelected: false }
+          // { label: 'Last 30 days', value: 30, isHover: false, isSelected: false },
+          // { label: '2 Days Ago', value: 'two-days-ago', isHover: false, isSelected: false },
+          // { label: 'Current year', value: 'year', isHover: false, isSelected: false },
+          // { label: 'Last year', value: '-year', isHover: false, isSelected: false }
         ]
       }
     },
@@ -79,21 +81,37 @@
         shortcut.isSelected = true
 
         switch (value) {
-        case 'isoWeek': case 'month': case 'year':
-          dates.start = moment().locale(this.locale).startOf(value)
-          dates.end = moment().locale(this.locale).endOf(value)
+        case 'day': case 'isoWeek': case 'month': case 'year':
+          dates.start = moment.utc().startOf(value).format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().endOf(value).format('YYYY-MM-DD HH:mm:ss')
           break
+
+        case 'yesterday':
+          dates.start = moment.utc().subtract(1, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().subtract(1, 'day').endOf('day').format('YYYY-MM-DD HH:mm:ss')
+          break
+
+        case 'two-days-ago':
+          dates.start = moment.utc().subtract(2, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().subtract(2, 'day').endOf('day').format('YYYY-MM-DD HH:mm:ss')
+          break
+
+        case 'last-week':
+          dates.start = moment.utc().subtract(1, 'week').startOf('isoWeek').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().subtract(1, 'week').endOf('isoWeek').format('YYYY-MM-DD HH:mm:ss')
+          break
+
         case 7: case 30:
-          dates.end = moment().locale(this.locale)
-          dates.start = moment().locale(this.locale).subtract(value, 'd')
+          dates.start = moment.utc().subtract(value, 'day').startOf('day').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().endOf('day').format('YYYY-MM-DD HH:mm:ss')
           break
         case '-month':
-          dates.start = moment().locale(this.locale).subtract(1, 'months').startOf('month')
-          dates.end = moment().locale(this.locale).subtract(1, 'months').endOf('month')
+          dates.start = moment.utc().subtract(1, 'months').startOf('month').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().subtract(1, 'months').endOf('month').format('YYYY-MM-DD HH:mm:ss')
           break
         case '-year':
-          dates.start = moment().locale(this.locale).subtract(1, 'years').startOf('year')
-          dates.end = moment().locale(this.locale).subtract(1, 'years').endOf('year')
+          dates.start = moment.utc().subtract(1, 'years').startOf('year').format('YYYY-MM-DD HH:mm:ss')
+          dates.end = moment.utc().subtract(1, 'years').endOf('year').format('YYYY-MM-DD HH:mm:ss')
           break
         }
 

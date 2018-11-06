@@ -66,7 +66,6 @@
       :disabled-dates="disabledDates"
       :dark="dark"
       @change-date="changeDate"
-      @validate="validate"
     />
     <ctk-date-range-picker
       v-else
@@ -93,7 +92,7 @@
       :without-range-shortcut="withoutRangeShortcut"
       :dark="dark"
       @change-date="changeDate"
-      @validate="validate"
+      @submit="submit"
     />
   </div>
 </template>
@@ -119,6 +118,8 @@
       hint: { type: String, default: String },
       errorHint: { type: Boolean, default: Boolean },
       value: { type: [String, Object], required: false, default: null },
+      fixedStartTime: {type: String, default: '23:59:59'},
+      fixedEndTime: {type: String, default: '00:00:00'},
       formatted: { type: String, default: 'llll' },
       format: { type: String, default: String },
       locale: { type: String, default: 'en' },
@@ -217,8 +218,8 @@
       getRangeDatesTimeFormat (day) {
         const { start, end } = day
         return {
-          start: start ? moment(start).format(this.format) : null,
-          end: end ? moment(end).format(this.format) : null
+          start: start ? moment(start).format(`${this.format} ${this.fixedStartTime}`) : null,
+          end: end ? moment(end).format(`${this.format} ${this.fixedEndTime}`) : null
         }
       },
       getRangeDatesFormatted () {
@@ -265,7 +266,8 @@
         this.hideDatePicker()
         this.isFocus = false
       },
-      validate () {
+      submit () {
+        this.$emit('submit')
         this.unFocus()
       }
     }

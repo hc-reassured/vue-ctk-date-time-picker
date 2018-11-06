@@ -6,7 +6,7 @@
       type="button"
       tabindex="-1"
       class="datepicker-button flex align-center justify-content-center"
-      @click="$emit('validate')">
+      @click="$emit('submit')">
       <span class="datepicker-button-effect"/>
       <svg
         xmlns="http://www.w3.org/2000/svg"

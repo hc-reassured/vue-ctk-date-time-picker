@@ -57,7 +57,7 @@
         <ctk-button-validate
           v-if="enableButtonValidate && !inline && !autoClose"
           :dark="dark"
-          @validate="validate"
+          @submit="submit"
         />
       </div>
     </div>
@@ -164,8 +164,8 @@
         }
         this.month = new Month(month, year)
       },
-      validate () {
-        this.$emit('validate')
+      submit () {
+        this.$emit('submit')
       }
     }
   }
