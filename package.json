@@ -1,6 +1,6 @@
 {
   "name": "vue-range-picker-extended",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vue select date range component",
   "author": "Harri Clarke <clarkey08@live.co.uk>",
   "main": "dist/vue-ctk-date-time-picker.min.js",

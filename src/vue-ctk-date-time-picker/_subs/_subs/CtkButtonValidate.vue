@@ -7,7 +7,7 @@
       tabindex="-1"
       class="datepicker-button flex align-center justify-content-center"
       @click="$emit('submit')">
-      <span class="datepicker-button-effect"></span>
+      <span class="datepicker-button-effect"/>
       <span class="ok-label">Apply&nbsp;</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
