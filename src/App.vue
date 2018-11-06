@@ -28,7 +28,7 @@
             :class="{'dark': darkMode}"
             class="component-container flex-1">
             <h3>DateTimePicker</h3>
-            <p>Inititale value : '2018-04-05T04:26'</p>
+            <p>Initial value : 'Today'</p>
             <p>v-model = {{ value || 'null' }}</p>
             <ctk-date-time-picker
               v-model="value"
@@ -59,7 +59,7 @@
             :class="{'dark': darkMode}"
             class="component-container flex-1">
             <h3>Range Date Picker</h3>
-            <p>Inititale value : {start: '2018-04-05', end: '2018-04-09'}</p>
+            <p>Initial value : 'Today'</p>
             <p>v-model = {{ rangeValues || 'null' }}</p>
             <ctk-date-time-picker
               v-model="rangeValues"
@@ -96,7 +96,7 @@
             :class="{'dark': darkMode}"
             class="component-container flex-1">
             <h3>DatePicker</h3>
-            <p>Inititale value : null</p>
+            <p>Initial value : 'Today'</p>
             <p>v-model = {{ value2 || 'null' }}</p>
             <ctk-date-time-picker
               v-model="value2"
@@ -127,7 +127,7 @@
             :class="{'dark': darkMode}"
             class="component-container flex-1">
             <h3>TimePicker</h3>
-            <p>Inititale value : '14:26'</p>
+            <p>Initial value : '14:26'</p>
             <p>v-model = {{ timePickerValue || 'null' }}</p>
             <ctk-date-time-picker
               id="timepicker"
@@ -162,7 +162,7 @@
             :class="{'dark': darkMode}"
             class="component-container flex-1">
             <h3>DateTimePicker without header & auto close</h3>
-            <p>Inititale value : '2018-04-05T14:26'</p>
+            <p>Initial value : 'Today'</p>
             <p>v-model = {{ value3 || 'null' }}</p>
             <ctk-date-time-picker
               v-model="value3"

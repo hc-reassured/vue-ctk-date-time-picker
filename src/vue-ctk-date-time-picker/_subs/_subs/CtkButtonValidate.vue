@@ -7,7 +7,8 @@
       tabindex="-1"
       class="datepicker-button flex align-center justify-content-center"
       @click="$emit('submit')">
-      <span class="datepicker-button-effect"/>
+      <span class="datepicker-button-effect"></span>
+      <span class="ok-label">Apply&nbsp;</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -48,15 +49,20 @@
       -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
       color: #FFF;
       font-weight: 500;
+
+      .ok-label {
+        color: #5EB95E;
+      }
+
       svg {
         position: relative;
         -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
         transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-        fill: #00C853;
+        fill: #5EB95E;
       }
       .datepicker-button-effect {
         position: absolute;
-        background: #00C853;
+        background: #5EB95E;
         height: 30px;
         border-radius: 30px;
         width: 100%;
@@ -69,6 +75,10 @@
         .datepicker-button-effect {
           transform: scale(1);
         }
+        .ok-label {
+            position: relative;
+            color: white;
+        }
         svg {
           fill: white !important;
         }
@@ -77,6 +87,10 @@
     &.is-dark, &.is-dark .datepicker-button {
       background-color: #424242;
       border-color: lighten(#424242, 20%);
+      .ok-label {
+          position: relative;
+          color: white;
+      }
       svg {
         fill: white !important;
       }

@@ -140,7 +140,7 @@
       -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
       .datepicker-button-effect {
         position: absolute;
-        background: #00C853;
+        background: #5EB95E;
         top: 0;
         right: 0;
         height: 30px;
