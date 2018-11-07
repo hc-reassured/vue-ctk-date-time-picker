@@ -75,7 +75,7 @@
     APM_TOKENS: ['A', 'a']
   }
   export default {
-    name: 'CtkTimePicker',
+    name: 'TimePicker',
     props: {
       format: {type: String, default: String},
       minuteInterval: {type: Number, default: Number},

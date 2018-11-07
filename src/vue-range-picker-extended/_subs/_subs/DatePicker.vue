@@ -1,6 +1,6 @@
 <template>
   <div
-    id="CtkDatePicker"
+    id="DatePicker"
     :class="{'flex-1 inline': inline, 'p-0': rangeMode, 'is-dark': dark}"
     class="datepicker-container">
     <div class="datepicker-controls flex align-center justify-content-center">
@@ -92,7 +92,7 @@
   import moment from 'moment'
   import { getWeekDays } from './../../modules/month'
   export default {
-    name: 'CtkDatePicker',
+    name: 'DatePicker',
     props: {
       month: {type: Object, default: Object},
       dateTime: {type: Object, default: Object},
@@ -206,7 +206,7 @@
 
 <style lang="scss" scoped>
   @import "../../assets/animation.scss";
-  #CtkDatePicker.datepicker-container {
+  #DatePicker.datepicker-container {
     width: 290px;
     padding: 0 5px;
     &.p-0 {
@@ -377,7 +377,7 @@
     }
   }
   @media screen and (max-width: 412px) {
-    #CtkDatePicker {
+    #DatePicker {
       width: 100%;
       &:not(.inline) {
         .datepicker-controls {

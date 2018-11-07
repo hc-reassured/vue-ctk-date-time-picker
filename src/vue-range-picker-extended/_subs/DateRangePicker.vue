@@ -17,65 +17,27 @@
           :style="bgStyle"
           class="datepicker-header">
 
-          <div
-            v-if="!disableDate"
-            class="datepicker-year">
-            <transition-group :name="transitionDayName" >
-              <div
-                v-for="year in [year]"
-                :key="year">{{ year }}</div>
-            </transition-group>
+          <div class="datepicker-year">
+            <div>{{ year }}</div>
           </div>
 
           <div class="flex justify-content-between">
-            <transition-group
-              v-if="!disableDate"
-              :name="transitionDayName"
-              class="datepicker-date dots-text flex-1">
-              <span
-                v-for="dateFormatted in [getDateFormatted()]"
-                :key="dateFormatted">{{ getDateFormatted() }}</span>
-            </transition-group>
-            <div
-              v-if="!disableTime && !isFormatTwelve"
-              :style="timeWidth"
-              class="datepicker-time flex justify-content-center">
-              <transition-group
-                :name="transitionDayName"
-                class="dots-text datepicker-hour flex-1 flex justify-content-right">
-                <span
-                  v-for="hour in [dateTime.format('HH')]"
-                  :key="hour">{{ hour }}</span>
-              </transition-group>
-              <span>:</span>
-              <transition-group
-                :name="transitionDayName"
-                class="dots-text datepicker-minute flex-1 flex justify-content-left">
-                <span
-                  v-for="min in [dateTime.format('mm')]"
-                  :key="min">{{ min }}</span>
-              </transition-group>
-            </div>
-            <div
-              v-else-if="!disableTime"
-              :style="timeWidth"
-              class="datepicker-time flex">
-              <transition-group
-                :name="transitionDayName"
-                :class="{'justify-content-center': disableDate}"
-                class="dots-text datepicker-hour flex-1 flex">
-                <span
-                  v-for="hour in [dateTime.format(timeFormat)]"
-                  :key="hour">{{ hour }}</span>
-              </transition-group>
-            </div>
+            <span class="datepicker-date dots-text flex-1">{{ getRangeDatesFormatted }}</span>
           </div>
-
         </div>
         <div class="datetimepicker-container flex">
 
-          <ctk-date-picker
-            v-if="!disableDate"
+          <calendar-shortcut
+            v-if="!withoutRangeShortcut"
+            ref="calendar-shortcut"
+            :color="color"
+            :locale="locale"
+            :dark="dark"
+            :date-time="dateTime"
+            @change-range="selectShortcut"
+          />
+
+          <date-picker
             :inline="inline"
             :no-weekends-days="noWeekendsDays"
             :month="month"
@@ -84,32 +46,18 @@
             :color="color"
             :min-date="minDate"
             :max-date="maxDate"
-            :disabled-dates="disabledDates"
             :dark="dark"
+            class="date-range-picker"
+            range-mode
             @change-date="selectDate"
             @change-month="changeMonth"
           />
 
-          <ctk-time-picker
-            v-if="!disableTime"
-            ref="timePickerComponent"
-            :month="month"
-            :date-time="dateTime"
-            :color="color"
-            :format="timeFormat"
-            :disable-date="disableDate"
-            :minute-interval="minuteInterval"
-            :visible="visible"
-            :value="value"
-            :dark="dark"
-            @change-time="selectTime"
-          />
-
         </div>
-        <ctk-button-validate
+        <button-validate
           v-if="enableButtonValidate && !inline && !autoClose"
           :dark="dark"
-          @validate="validate"
+          @submit="submit"
         />
       </div>
     </div>
@@ -117,26 +65,22 @@
 </template>
 
 <script>
-  import CtkTimePicker from './_subs/CtkTimePicker.vue'
-  import CtkDatePicker from './_subs/CtkDatePicker.vue'
-  import CtkButtonValidate from './_subs/CtkButtonValidate'
+  import DatePicker from './_subs/DatePicker'
+  import ButtonValidate from './_subs/ButtonValidate'
+  import CalendarShortcut from './_subs/CalendarShortcut'
   import Month from './../modules/month'
   import moment from 'moment'
   export default {
-    name: 'CtkDatePickerAgenda',
+    name: 'DateRangePicker',
     components: {
-      CtkTimePicker,
-      CtkDatePicker,
-      CtkButtonValidate
+      DatePicker,
+      ButtonValidate,
+      CalendarShortcut
     },
     props: {
       dateTime: { type: Object, default: Object },
       visible: { type: Boolean, required: true, default: true },
-      disableTime: { type: Boolean, default: Boolean },
-      disableDate: { type: Boolean, default: Boolean },
-      minuteInterval: { type: Number, default: Number },
       color: { type: String, default: String },
-      timeFormat: { type: String, default: String },
       withoutHeader: { type: Boolean, default: Boolean },
       locale: { type: String, default: String },
       maxDate: { type: String, default: String },
@@ -147,14 +91,12 @@
       autoClose: { type: Boolean, default: Boolean },
       enableButtonValidate: { type: Boolean, default: Boolean },
       value: { type: [String, Object], default: String },
-      disabledDates: { type: Array, default: Array },
+      withoutRangeShortcut: { type: Boolean, default: false },
       dark: { type: Boolean, default: Boolean }
     },
     data () {
       return {
-        month: this.getMonth(),
-        transitionDayName: 'slidevnext',
-        timeWidth: !this.disableTime ? this.getTimePickerWidth() : null
+        month: this.getMonth()
       }
     },
     computed: {
@@ -163,58 +105,54 @@
           ? null : this.agendaPosition === 'top'
             ? {top: '100%', marginBottom: '10px'} : {bottom: '100%', marginTop: '10px'}
       },
-      isFormatTwelve () {
-        return this.timeFormat ? (this.timeFormat.indexOf('a') > -1) || (this.timeFormat.indexOf('A') > -1) : false
-      },
       bgStyle () {
         return {
           backgroundColor: this.color,
-          padding: this.disableDate ? '10px 0' : '10px 0 10px 10px'
+          padding: '10px 0 10px 10px'
         }
       },
       year () {
-        return this.dateTime.format('YYYY')
+        const date = this.dateTime.start || this.dateTime.end
+          ? this.dateTime.end ? this.dateTime.end : this.dateTime.start
+          : moment()
+        return date.format('YYYY')
+      },
+      getRangeDatesFormatted () {
+        const hasStartValues = this.value && this.value.start
+        const hasEndValues = this.value && this.value.end
+        if (!hasStartValues && !hasEndValues) {
+          return '... - ...'
+        } else if (hasStartValues || hasEndValues) {
+          const datesFormatted = hasStartValues ? `${moment(this.dateTime.start).locale(this.locale).format('ddd D MMM')}` : '...'
+          return hasEndValues ? `${datesFormatted} - ${moment(this.dateTime.end).locale(this.locale).format('ddd D MMM')}` : `${datesFormatted} - ...`
+        } else {
+          return null
+        }
       }
     },
     watch: {
       dateTime: {
         handler () {
           this.month = this.getMonth()
-          this.getDateFormatted()
         },
         deep: true
       },
       locale () {
         this.month = this.getMonth()
-        this.getDateFormatted()
-      },
-      visible (val) {
-        if (val && !this.disableTime) {
-          this.$nextTick(() => {
-            this.timeWidth = this.getTimePickerWidth()
-          })
-        }
       }
     },
     methods: {
       getMonth () {
-        const date = this.dateTime
+        const date = this.dateTime.start || this.dateTime.end
+          ? this.dateTime.end ? this.dateTime.end : this.dateTime.start
+          : moment()
         return new Month(date.month(), date.year())
       },
-      getDateFormatted () {
-        return moment(this.dateTime).locale(this.locale).format('ddd D MMM')
-      },
-      selectTime (dateTime) {
-        const isBigger = dateTime > this.dateTime
-        this.transitionDayName = isBigger ? 'slidevnext' : 'slidevprev'
-        this.$emit('change-date', dateTime)
-      },
       selectDate (dateTime) {
-        const isBefore = dateTime.isBefore(this.dateTime)
-        this.transitionDayName = isBefore ? 'slidevprev' : 'slidevnext'
-        const date = this.dateTime
-        dateTime.add(date.hour(), 'hours')
-        dateTime.add(date.minute(), 'minutes')
+        this.$emit('change-date', dateTime)
+        this.$refs['calendar-shortcut'].unSelectAllShortcuts()
+      },
+      selectShortcut (dateTime) {
         this.$emit('change-date', dateTime)
       },
       changeMonth (val) {
@@ -226,19 +164,8 @@
         }
         this.month = new Month(month, year)
       },
-      validate () {
-        this.$emit('validate')
-      },
-      getTimePickerWidth () {
-        const timePickerComponentPresent = this.$refs.timePickerComponent && this.$refs.timePickerComponent.$el.clientWidth
-        const width = timePickerComponentPresent ? this.$refs.timePickerComponent.$el.clientWidth : 160
-        const result = {
-          flex: `0 0 ${width}px`,
-          width: `${width}px`,
-          minWidth: `${width}px`,
-          maxWidth: `${width}px`
-        }
-        return result
+      submit () {
+        this.$emit('submit')
       }
     }
   }
@@ -287,14 +214,17 @@
         .datepicker-date {
           text-transform: capitalize;
         }
-        .datepicker-hour:not(.justify-content-center) {
-          padding-left: 10px;
-        }
+      }
+      .date-range-picker {
+        border-left: 1px solid #EAEAEA
       }
     }
     &.is-dark {
       .datetimepicker-container {
         background: #424242;
+      }
+      .date-range-picker {
+        border-left: 1px solid lighten(#424242, 20%);
       }
     }
     &.has-validate-button {
@@ -354,6 +284,10 @@
           -webkit-justify-content: flex-end;
           -webkit-box-align: end;
         }
+      }
+      .date-range-picker {
+        border-left: none;
+        border-bottom: 1px solid #EAEAEA
       }
     }
   }

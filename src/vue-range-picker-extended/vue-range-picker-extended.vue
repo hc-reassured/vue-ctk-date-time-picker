@@ -2,7 +2,7 @@
   <div
     :id="id"
     :class="{'inline': inline, 'is-dark': dark}"
-    class="ctk-date-time-picker"
+    class="date-time-picker"
   >
     <div
       v-if="!inline"
@@ -12,7 +12,7 @@
       @click="showDatePicker"
     >
       <input
-        ref="CtkDateTimePicker"
+        ref="DateTimePicker"
         :id="id"
         :value="dateFormatted"
         :placeholder="label"
@@ -42,7 +42,7 @@
       class="time-picker-overlay"
       @click.stop="unFocus"
     />
-    <ctk-date-picker-agenda
+    <date-picker-agenda
       v-if="!rangeMode"
       ref="agenda"
       v-model="value"
@@ -67,7 +67,7 @@
       :dark="dark"
       @change-date="changeDate"
     />
-    <ctk-date-range-picker
+    <date-range-picker
       v-else
       ref="range"
       v-model="value"
@@ -99,8 +99,8 @@
 
 <script>
   import moment from 'moment'
-  import CtkDatePickerAgenda from './_subs/CtkDatePickerAgenda'
-  import CtkDateRangePicker from './_subs/CtkDateRangePicker'
+  import DatePickerAgenda from './_subs/DatePickerAgenda'
+  import DateRangePicker from './_subs/DateRangePicker'
 
   const nearestMinutes = (interval, someMoment, m) => {
     const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval
@@ -108,10 +108,10 @@
   }
 
   export default {
-    name: 'VueCtkDateTimePicker',
+    name: 'VueDateTimePicker',
     components: {
-      CtkDatePickerAgenda,
-      CtkDateRangePicker
+      DatePickerAgenda,
+      DateRangePicker
     },
     props: {
       label: { type: String, default: 'Select date & time' },
@@ -129,7 +129,7 @@
       color: { type: String, default: String },
       timeFormat: { type: String, default: 'h:mm a' },
       withoutHeader: { type: Boolean, default: false },
-      id: { type: String, default: 'CtkDateTimePicker' },
+      id: { type: String, default: 'DateTimePicker' },
       minDate: { type: String, default: String },
       maxDate: { type: String, default: String },
       withoutInput: { type: Boolean, default: false },
@@ -278,7 +278,7 @@
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
   @import "./assets/main.scss";
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
-  .ctk-date-time-picker {
+  .date-time-picker {
     width: 100%;
     margin: 0 auto;
     text-align: left;
@@ -414,7 +414,7 @@
     .time-picker-overlay {
       background: rgba(0, 0, 0, 0.4);
     }
-    .ctk-date-time-picker:not(.inline) {
+    .date-time-picker:not(.inline) {
       position: inherit !important;
     }
   }

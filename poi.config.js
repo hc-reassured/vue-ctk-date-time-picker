@@ -3,7 +3,7 @@ const glob = require('glob').sync
 const {name} = require('./package.json')
 
 module.exports = {
-  entry: glob('./src/vue-ctk-date-time-picker/*.vue'),
+  entry: glob('./src/vue-range-picker-extended/*.vue'),
   filename: {
     js: name + '.min.js',
     css: name + '.min.css'
@@ -17,5 +17,5 @@ module.exports = {
       frameworks: ['mocha', 'chai', 'phantomjs-shim']
     })
   ],
-  moduleName: 'VueCtkDateTimePicker'
+  moduleName: 'VueDateTimePicker'
 }

@@ -28,7 +28,7 @@
   import moment from 'moment'
 
   export default {
-    name: 'CtkCalendarShortcut',
+    name: 'CalendarShortcut',
     props: {
       color: { type: String, default: String },
       dark: { type: Boolean, default: false },

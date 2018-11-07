@@ -25,7 +25,7 @@
 
 <script>
   export default {
-    name: 'CtkButtonValidate',
+    name: 'ButtonValidate',
     props: {
       dark: { type: Boolean, default: false }
     }

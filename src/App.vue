@@ -3,7 +3,7 @@
     id="app"
     :class="{'dark': darkMode}">
     <div
-      id="vueCtkDateTimePicker"
+      id="vueDateTimePicker"
       class="ctk-date-time-picker">
       <header>
         <img
@@ -14,7 +14,7 @@
           v-else
           src="./assets/logo-dark.png"
           alt="logo-chronotruck-dark">
-        <h1>CtkDatetimePicker</h1>
+        <h1>DatetimePicker</h1>
         <h3>A VueJs component for select date & time</h3>
         <button
           class="btn"
@@ -30,7 +30,7 @@
             <h3>DateTimePicker</h3>
             <p>Initial value : 'Today'</p>
             <p>v-model = {{ value || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               v-model="value"
               :minute-interval="10"
               :min-date="minDate"
@@ -44,7 +44,7 @@
               readonly
               tabindex="-1"
               style="height: 120px;">
-              <ctk-date-time-picker
+              <date-time-picker
               v-model="value"
               :minute-interval="10"
               color="#96bf31"
@@ -61,7 +61,7 @@
             <h3>Range Date Picker</h3>
             <p>Initial value : 'Today'</p>
             <p>v-model = {{ rangeValues || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               v-model="rangeValues"
               :dark="darkMode"
               range-mode
@@ -78,7 +78,7 @@
               readonly
               tabindex="-1"
               style="height: 150px;">
-              <ctk-date-time-picker
+              <date-time-picker
               v-model="{ start: '2018-04-05', end: '2018-04-20' }"
               range-mode
               overlay-background
@@ -98,7 +98,7 @@
             <h3>DatePicker</h3>
             <p>Initial value : 'Today'</p>
             <p>v-model = {{ value2 || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               v-model="value2"
               :dark="darkMode"
               format="YYYY-MM-DD"
@@ -112,7 +112,7 @@
               readonly
               tabindex="-1"
               style="height: 120px;">
-              <ctk-date-time-picker
+              <date-time-picker
               v-model="value2"
               :dark="darkMode"
               color="#287696"
@@ -129,7 +129,7 @@
             <h3>TimePicker</h3>
             <p>Initial value : '14:26'</p>
             <p>v-model = {{ timePickerValue || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               id="timepicker"
               v-model="timePickerValue"
               :minute-interval="minuteInterval2"
@@ -146,7 +146,7 @@
               readonly
               tabindex="-1"
               style="height: 130px;">
-              <ctk-date-time-picker
+              <date-time-picker
               v-model="yourValue"
               :dark="darkMode"
               formatted="h:mm a"
@@ -164,7 +164,7 @@
             <h3>DateTimePicker without header & auto close</h3>
             <p>Initial value : 'Today'</p>
             <p>v-model = {{ value3 || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               v-model="value3"
               :minute-interval="10"
               :error-hint="errorHint"
@@ -180,7 +180,7 @@
               readonly
               tabindex="-1"
               style="height: 130px;">
-              <ctk-date-time-picker
+              <date-time-picker
               without-header
               auto-close
               v-model="yourValue"
@@ -199,7 +199,7 @@
             class="component-container flex-1">
             <h3>Inline DateTimePicker && disabled dates</h3>
             <p>v-model = {{ value || 'null' }}</p>
-            <ctk-date-time-picker
+            <date-time-picker
               v-model="value"
               :dark="darkMode"
               :disabled-dates="['2018-04-03', '2018-04-07', '2018-04-09', '2018-04-11', '2018-04-13', '2018-04-15', '2018-04-17', '2018-04-19']"
@@ -212,7 +212,7 @@
               readonly
               tabindex="-1"
               style="height: 100px;">
-              <ctk-date-time-picker
+              <date-time-picker
               v-model="value"
               :dark="darkMode"
               :disabled-dates="['2018-04-03', '2018-04-07', '2018-04-09', '2018-04-11', '2018-04-13', '2018-04-15', '2018-04-17', '2018-04-19']"
@@ -227,7 +227,7 @@
             class="component-container flex-1">
             <h3>DateTimePicker disabled</h3>
             <p>Option : 'disabled'</p>
-            <ctk-date-time-picker
+            <date-time-picker
               :dark="darkMode"
               disabled
             />
@@ -236,7 +236,7 @@
               readonly
               tabindex="-1"
               style="height: 60px;">
-              <ctk-date-time-picker
+              <date-time-picker
               :dark="darkMode"
               disabled
               />
@@ -249,13 +249,13 @@
 </template>
 
 <script>
-  import CtkDateTimePicker from './vue-ctk-date-time-picker/vue-ctk-date-time-picker.vue'
+  import DateTimePicker from './vue-range-picker-extended/vue-range-picker-extended.vue'
   import moment from 'moment'
 
   export default {
     name: 'App',
     components: {
-      CtkDateTimePicker
+      DateTimePicker
     },
     data () {
       return {
@@ -291,8 +291,8 @@
 </script>
 
 <style lang="scss">
-  @import "./vue-ctk-date-time-picker/assets/main.scss";
-  html, body, #app, #vueCtkDateTimePicker {
+  @import "./vue-range-picker-extended/assets/main.scss";
+  html, body, #app, #vueDateTimePicker {
     margin: 0;
     min-height: 100%;
     min-width: 100%;
