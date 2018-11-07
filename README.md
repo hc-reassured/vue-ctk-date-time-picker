@@ -1,24 +1,24 @@
-![vue-ctk-date-time-picker](./assets/logo_sticky.png)
+![vue-range-picker-extended](./assets/logo_sticky.png)
 
-# vue-ctk-date-time-picker
+# vue-range-picker-extended
 
 > A vue component for select dates (range mode available) & time
 
-![vue-ctk-date-time-picker](./assets/illu-animated.gif)
+![vue-range-picker-extended](./assets/illu-animated.gif)
 #### Dark mode
-![vue-ctk-date-time-picker](./assets/illu-animated-dark.gif)
+![vue-range-picker-extended](./assets/illu-animated-dark.gif)
 ## Demo
-[Enjoy here](https://htmlpreview.github.io/?https://github.com/chronotruck/vue-ctk-date-time-picker/blob/master/demo/index.html)
+[Enjoy here](https://htmlpreview.github.io/?https://github.com/chronotruck/vue-range-picker-extended/blob/master/demo/index.html)
 
 ## Installation
 
 ### Using yarn
 
-`yarn add vue-ctk-date-time-picker`
+`yarn add vue-range-picker-extended`
 
 ### Using npm
 
-`npm i --save vue-ctk-date-time-picker`
+`npm i --save vue-range-picker-extended`
 
 ## Docs
 
@@ -29,27 +29,27 @@
 ### ES6 Modules / CommonJS
 
 ```js
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.min.css';
+import VueCtkDateTimePicker from 'vue-range-picker-extended';
+import 'vue-range-picker-extended/dist/vue-range-picker-extended.min.css';
 
-Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker);
+Vue.component('vue-range-picker-extended', VueCtkDateTimePicker);
 ```
 
 ```html
-<vue-ctk-date-time-picker></vue-ctk-date-time-picker>
+<vue-range-picker-extended></vue-range-picker-extended>
 ```
 
 ### UMD
 
 ```html
-<vue-ctk-date-time-picker></vue-ctk-date-time-picker>
+<vue-range-picker-extended></vue-range-picker-extended>
 
 <script src="https://unpkg.com/vue" charset="utf-8"></script>
-<script src="./dist/umd/vue-ctk-date-time-picker.min.js" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="./dist/umd/vue-ctk-date-time-picker.min.css">
+<script src="./dist/umd/vue-range-picker-extended.min.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="./dist/umd/vue-range-picker-extended.min.css">
 
 <script type="text/javascript">
-  Vue.component('vue-ctk-date-time-picker', window.VueCtkDateTimePicker.default);
+  Vue.component('vue-range-picker-extended', window.VueCtkDateTimePicker.default);
 </script>
 ```
 ## Props API

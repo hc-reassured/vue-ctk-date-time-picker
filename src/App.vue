@@ -4,7 +4,7 @@
     :class="{'dark': darkMode}">
     <div
       id="vueDateTimePicker"
-      class="ctk-date-time-picker">
+      class="date-time-picker">
       <header>
         <img
           v-if="!darkMode"

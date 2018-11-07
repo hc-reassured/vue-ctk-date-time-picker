@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Vue select date range component",
   "author": "Harri Clarke <clarkey08@live.co.uk>",
-  "main": "dist/vue-ctk-date-time-picker.min.js",
+  "main": "dist/vue-range-picker-extended.min.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint --ext .js,.vue src modules",
